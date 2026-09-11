@@ -1,6 +1,7 @@
-# LeetCode Questions — 11 September 2026
+# SQL Questions
 
-- 153 — Find Minimum in Rotated Sorted Array
+## 11 September 2026
+
 - 180 — Consecutive Numbers
 - 610 — Triangle Judgement
 - 1164 — Product Price at a Given Date
