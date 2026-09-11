@@ -1,3 +1,3 @@
 # 610 — Triangle Judgement
 
-All three triangle inequalities must hold: every pair of sides must sum to more than the remaining side.
+All three sides have to follow the triangle rule. The sum of any two sides must be greater than the third side.

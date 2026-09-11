@@ -1,11 +1,11 @@
-# Weather Data Pipeline
+# Weather Data Pipeline Notes
 
-Used as a learning example for ingestion concepts.
+I used this project to understand how a basic ingestion pipeline works. I’m not treating it as a serious resume project right now.
 
-Flow:
+The flow is:
 
 ```text
 run tests → call API → save raw JSON → validate and transform → save processed JSON → append CSV → save SQLite → analyze
 ```
 
-The project is intentionally paused as a resume project for now.
+For now, I’m keeping the project paused and using it mainly to learn from.

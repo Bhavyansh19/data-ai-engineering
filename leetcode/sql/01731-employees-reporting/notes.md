@@ -1,3 +1,3 @@
 # 1731 — The Number of Employees Which Report to Each Employee
 
-Use a self-join: `e` represents reports and `m` represents managers. Group by the manager and aggregate the direct reports.
+I used a self-join here. `e` means the employees reporting to someone, and `m` means the managers. Then I grouped everything by manager and counted the reports.

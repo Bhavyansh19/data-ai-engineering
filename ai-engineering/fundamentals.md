@@ -1,25 +1,25 @@
-# AI Engineering Fundamentals
+# AI Engineering Basics
 
 ## Tokens
 
-LLMs process text as tokens rather than exactly as words. Input and output limits, cost, and latency are measured using tokens.
+LLMs don’t read text exactly like we do. They break it into smaller pieces called tokens. Input and output limits, cost, and response time are all connected to tokens.
 
 ## Context windows
 
-A context window is the maximum amount of tokenized input and output a model can process at one time. Too much irrelevant context can reduce answer quality.
+A context window is the maximum amount of text, measured in tokens, that a model can handle at one time. Giving it too much irrelevant information can make the answer worse.
 
 ## Prompting
 
-Good prompts specify the task, relevant context, constraints, and desired output format.
+Good prompts clearly say what we want, give the useful context, set any limits, and explain the format we want back.
 
 ## Structured output
 
-Structured output requires a predictable schema, such as JSON, so downstream Python code can parse and validate the response.
+Structured output gives us a predictable format, like JSON, so Python code can read and check the response properly.
 
 ## Reliability
 
-Hallucinations are unsupported or invented responses. Grounding with trusted data, citations, validation, and an explicit unknown option can reduce the risk.
+Hallucinations happen when the model gives us something made up but says it confidently. Trusted data, citations, validation, and allowing the model to say “I don’t know” can reduce this.
 
 ## Temperature
 
-Lower temperature is generally better for deterministic extraction and structured data. Higher temperature is useful for creative variation.
+Low temperature is better when we want consistent data extraction. Higher temperature is more useful for creative answers.

@@ -1,3 +1,3 @@
 # 180 — Consecutive Numbers
 
-Use `LEAD` to compare the current row with the next two rows. Ordering by `id` defines what consecutive means.
+I used `LEAD` to compare the current number with the next two rows. `ORDER BY id` tells SQL what “next” means.
