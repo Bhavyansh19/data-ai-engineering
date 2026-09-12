@@ -23,3 +23,23 @@ Hallucinations happen when the model gives us something made up but says it conf
 ## Temperature
 
 Low temperature is better when we want consistent data extraction. Higher temperature is more useful for creative answers.
+
+## Embeddings
+
+Embeddings convert text into numerical vectors. Texts with similar meanings tend to have vectors that are close together, even when they use different words. The individual dimensions usually do not correspond to simple human-readable concepts.
+
+## Cosine similarity
+
+Cosine similarity compares the direction of two vectors. A higher similarity generally indicates more similar meaning, which makes it useful when searching for relevant text embeddings.
+
+## Vector databases
+
+Vector databases store embedding vectors along with their text chunks or references and metadata. They can search for vectors close to a query vector and filter results using metadata.
+
+## Retrieval-Augmented Generation (RAG)
+
+A basic RAG pipeline splits source documents into chunks, creates embeddings for the chunks, stores them, embeds the user question, retrieves similar chunks, and sends the retrieved context with the question to an LLM.
+
+## Chunking and retrieval quality
+
+Chunks that are too small may lose important context. Chunks that are too large can reduce retrieval precision, increase token usage, and exceed context limits. Retrieval quality can be improved with better chunking, stronger embeddings, metadata filters, hybrid keyword-plus-vector search, and reranking.
