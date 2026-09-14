@@ -17,3 +17,11 @@
 - 1484 — Group Sold Products By the Date
 - 176 — Second Highest Salary
 - 1517 — Find Users With Valid E-Mails
+
+## 14 September 2026
+
+- 626 — Exchange Seats
+- 1978 — Employees Whose Manager Left the Company
+- 1341 — Movie Rating
+- 1321 — Restaurant Growth
+- 602 — Friend Requests II: Who Has the Most Friends
