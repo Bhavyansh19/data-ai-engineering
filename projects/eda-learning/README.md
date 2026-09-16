@@ -1,49 +1,67 @@
-# Exploratory Data Analysis with SQL: Data Engineer Job Market
+# EDA with SQL — Job Market Analysis
 
-This project uses SQL to explore the data engineer job market through job-posting data. The goal was to move from broad career questions—what employers ask for, which skills are associated with higher pay, and what is worth learning—to repeatable analytical queries.
+This was my first proper SQL analysis project. I used job posting data to look at what skills are being asked for in data engineering jobs, which skills seem to be connected with higher salaries, and which ones might be worth learning first.
 
-## Questions answered
+I was mainly trying to answer three questions:
 
-1. Which skills appear most often in remote data engineer job postings?
-2. Which skills have the highest median annual salary among skills with meaningful demand?
-3. Which skills offer a practical balance of demand and compensation?
+- What are the most demanded skills for data engineers?
+- Which skills have the highest salaries?
+- Which skills have a good balance between demand and salary?
+
+## What I worked with
+
+The data was organized into a few related tables:
+
+- `job_postings_fact` — information about the job postings
+- `skills_dim` — the list of skills
+- `skills_job_dim` — the table connecting jobs and skills
+
+The `skills_job_dim` table was important because one job can need multiple skills, and one skill can appear in many jobs. I had to join these tables together before I could group the results by skill.
 
 ## What I learned
 
-- How a star-schema style warehouse supports analysis: a job-postings fact table is connected to skill and job-skill bridge tables.
-- How to solve many-to-many relationships by joining a bridge table before grouping by skill.
-- How to write analytical SQL with `INNER JOIN`, `WHERE`, `GROUP BY`, `HAVING`, `ORDER BY`, and `LIMIT`.
-- How to use `COUNT` to measure skill demand and `MEDIAN` to make salary comparisons less sensitive to extreme values.
-- Why incomplete salary records should be excluded when the analysis depends on compensation.
-- How filters such as job title, remote status, and salary availability change the population being analyzed.
-- How to create derived metrics with `ROUND` and `LN` for easier comparison and ranking.
-- Why demand and salary should be considered together: a rare, high-paying skill is not automatically the best first skill to learn.
-- How to keep query output readable and explain the business purpose of each analysis.
-- The basics of DuckDB for running fast, local analytical SQL queries and the basics of MotherDuck for working with DuckDB databases in a cloud-connected environment.
-- How Git helps organize, review, and publish SQL learning projects.
+While working on this, I learned:
 
-## Query guide
+- The basics of DuckDB and how to use it to run analytical SQL locally.
+- The basics of MotherDuck and how it can be used with DuckDB databases in a cloud environment.
+- How fact, dimension, and bridge tables fit together in a simple data warehouse.
+- How to join multiple tables to answer a real question instead of just querying one table.
+- How `COUNT()` can be used to measure how often a skill appears in job postings.
+- How `MEDIAN()` is useful for salary analysis because one unusually high or low salary does not affect it as much as an average would.
+- How to filter the data using conditions like data engineer roles, remote jobs, and available salary information.
+- The difference between filtering rows with `WHERE` and filtering grouped results with `HAVING`.
+- How to sort and limit results to find the top skills.
+- How to create new calculated columns using functions like `ROUND()` and `LN()`.
+- Why looking only at salary can be misleading. A skill may have a high salary but show up in very few jobs.
+- Why SQL and Python are still the most practical skills to focus on first based on the results.
+- How to save my SQL work in Git and keep it organized as part of my learning journey.
 
-| File | Purpose |
-| --- | --- |
-| [`01_top_demanded_skills.sql`](./01_top_demanded_skills.sql) | Finds the ten most frequently requested skills for remote data engineer roles. |
-| [`02_top_paying_skills.sql`](./02_top_paying_skills.sql) | Ranks skills by median annual salary while retaining demand counts. |
-| [`03_optimal_skills.sql`](./03_optimal_skills.sql) | Combines log-transformed demand and median salary into an exploratory skill score. |
+## The queries
 
-## Main findings
+### `01_top_demanded_skills.sql`
 
-The results show that SQL and Python are foundational skills, followed by major cloud platforms such as AWS and Azure. Spark, Airflow, Snowflake, and Databricks also appear frequently in remote data engineering roles. Infrastructure skills such as Terraform and Kubernetes rank strongly in the salary-oriented analysis, while the combined score highlights skills that are both useful in the market and valuable enough to prioritize.
+This finds the ten skills that appear most often in remote data engineer job postings. SQL and Python came out at the top, followed by AWS, Azure, Spark, Airflow, and other common tools.
 
-These findings are directional rather than universal salary guidance: they depend on the source data, the remote-job filter, the salary fields available, and the minimum-demand threshold used in each query.
+### `02_top_paying_skills.sql`
 
-## Data model used
+This looks at the median salary for each skill. I also included the number of job postings so I could see whether a skill was actually common or just appeared in a small number of highly paid jobs.
 
-- `job_postings_fact` — job titles, work location, salary, and posting details
-- `skills_job_dim` — bridge table connecting jobs to skills
-- `skills_dim` — skill names and metadata
+### `03_optimal_skills.sql`
 
-The queries are written for DuckDB and use DuckDB-compatible analytical functions such as `MEDIAN`. This project also introduced the basics of MotherDuck, including how it can provide a hosted environment for accessing and analyzing DuckDB data.
+This was my attempt to combine demand and salary into one score. I used the natural log of the demand count so that extremely common skills did not completely overpower the salary part of the calculation.
 
-## How to review
+## Things I noticed
 
-Open the SQL files in order. Each file includes the business question, query logic, and a sample result captured from the analysis. To run them against a compatible database, make sure the three tables above are available in the current DuckDB session.
+SQL and Python showed up the most, which confirmed that they are the foundation for data engineering. AWS and Azure were also very common. Spark, Airflow, Snowflake, Databricks, and Kafka came up often too.
+
+Some infrastructure skills, especially Terraform and Kubernetes, showed strong salary results. But I also noticed that the highest-paying skill is not automatically the best skill to learn first. Demand matters as well, which is why the final query was useful.
+
+These results are just for learning and depend on the dataset and filters I used. They are not meant to be a perfect picture of the entire job market.
+
+## Files
+
+- [`01_top_demanded_skills.sql`](./01_top_demanded_skills.sql)
+- [`02_top_paying_skills.sql`](./02_top_paying_skills.sql)
+- [`03_optimal_skills.sql`](./03_optimal_skills.sql)
+
+The queries were written for DuckDB. I included the output in the SQL files so I can look back at what I found without having to rerun everything immediately.
