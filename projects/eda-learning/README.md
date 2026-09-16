@@ -19,6 +19,7 @@ This project uses SQL to explore the data engineer job market through job-postin
 - How to create derived metrics with `ROUND` and `LN` for easier comparison and ranking.
 - Why demand and salary should be considered together: a rare, high-paying skill is not automatically the best first skill to learn.
 - How to keep query output readable and explain the business purpose of each analysis.
+- The basics of DuckDB for running fast, local analytical SQL queries and the basics of MotherDuck for working with DuckDB databases in a cloud-connected environment.
 - How Git helps organize, review, and publish SQL learning projects.
 
 ## Query guide
@@ -41,7 +42,7 @@ These findings are directional rather than universal salary guidance: they depen
 - `skills_job_dim` — bridge table connecting jobs to skills
 - `skills_dim` — skill names and metadata
 
-The queries are written for DuckDB and use DuckDB-compatible analytical functions such as `MEDIAN`.
+The queries are written for DuckDB and use DuckDB-compatible analytical functions such as `MEDIAN`. This project also introduced the basics of MotherDuck, including how it can provide a hosted environment for accessing and analyzing DuckDB data.
 
 ## How to review
 
