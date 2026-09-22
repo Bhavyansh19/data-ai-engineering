@@ -51,7 +51,9 @@ python -m pytest -q
 - `size()` counts rows and `nunique()` counts distinct values.
 - Raw data and processed data should be kept separately.
 - Validation catches missing files, columns, relationships, and duplicate keys.
+- A star schema separates event data in a fact table from descriptive data in dimensions.
 
 ## Next
 
-Understand the local MVP first. Then add a database, dbt, AWS, and Airflow one at a time.
+The local star-schema CSV model is now built. Next, understand it before adding a database,
+dbt, AWS, or Airflow.
