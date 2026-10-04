@@ -15,6 +15,9 @@ The local MVP can:
 - write a detailed schedule file
 - write a route-level summary file
 - run automated tests
+- load the local star schema into PostgreSQL
+- build staging views and mart tables with dbt
+- run dbt tests for nulls, duplicates, composite keys, and relationships
 
 ## Current flow
 
@@ -26,6 +29,10 @@ BART GTFS ZIP
 → joins
 → data/processed/scheduled_stop_events.csv
 → data/processed/route_schedule_summary.csv
+→ PostgreSQL transitflow database
+→ dbt source definitions
+→ staging views
+→ analytics mart tables
 ```
 
 ## Main files
@@ -33,6 +40,8 @@ BART GTFS ZIP
 - `src/run_pipeline.py` — runs the local pipeline
 - `src/ingest_static_gtfs.py` — downloads, loads, validates, and joins data
 - `tests/` — automated checks
+- `sql/warehouse_schema.sql` — PostgreSQL tables and constraints
+- `dbt/` — dbt project, staging models, mart models, and tests
 
 ## How to run
 
@@ -52,8 +61,12 @@ python -m pytest -q
 - Raw data and processed data should be kept separately.
 - Validation catches missing files, columns, relationships, and duplicate keys.
 - A star schema separates event data in a fact table from descriptive data in dimensions.
+- PostgreSQL can enforce primary-key and foreign-key rules while loading data.
+- `source()` points to an existing warehouse table; `ref()` points to another dbt model.
+- Staging models are usually views, while mart models are persistent tables.
+- dbt can build models and test data quality with one `dbt build` command.
 
 ## Next
 
-The local star-schema CSV model is now built. Next, understand it before adding a database,
-dbt, AWS, or Airflow.
+The local PostgreSQL warehouse and basic dbt layer are now working. Next, understand the dbt
+models and tests before moving to AWS or Airflow.
