@@ -17,6 +17,7 @@ The local MVP can:
 - run automated tests
 - load the local star schema into PostgreSQL
 - build staging views and mart tables with dbt
+- build a route-level summary mart with event, trip, and stop counts
 - run dbt tests for nulls, duplicates, composite keys, and relationships
 
 ## Current flow
@@ -65,6 +66,7 @@ python -m pytest -q
 - `source()` points to an existing warehouse table; `ref()` points to another dbt model.
 - Staging models are usually views, while mart models are persistent tables.
 - dbt can build models and test data quality with one `dbt build` command.
+- `GROUP BY` and `COUNT(DISTINCT ...)` can turn fact events into route-level metrics.
 
 ## Next
 
