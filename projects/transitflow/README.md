@@ -19,6 +19,7 @@ The local MVP can:
 - build staging views and mart tables with dbt
 - build a route-level summary mart with event, trip, and stop counts
 - land identical realtime feed contents only once during reruns
+- load realtime snapshots incrementally into PostgreSQL without duplicate rows
 - run dbt tests for nulls, duplicates, composite keys, and relationships
 
 ## Current flow
@@ -69,6 +70,7 @@ python -m pytest -q
 - dbt can build models and test data quality with one `dbt build` command.
 - `GROUP BY` and `COUNT(DISTINCT ...)` can turn fact events into route-level metrics.
 - Content-hashed raw filenames make realtime snapshot landing idempotent.
+- The realtime warehouse loader uses `(snapshot_hash, entity_id)` with `ON CONFLICT DO NOTHING`.
 
 ## Next
 
