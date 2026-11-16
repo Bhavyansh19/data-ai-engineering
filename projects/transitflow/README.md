@@ -20,6 +20,7 @@ The local MVP can:
 - build a route-level summary mart with event, trip, and stop counts
 - land identical realtime feed contents only once during reruns
 - load realtime snapshots incrementally into PostgreSQL without duplicate rows
+- expose realtime PostgreSQL records through a dbt staging view
 - run dbt tests for nulls, duplicates, composite keys, and relationships
 
 ## Current flow
@@ -71,6 +72,7 @@ python -m pytest -q
 - `GROUP BY` and `COUNT(DISTINCT ...)` can turn fact events into route-level metrics.
 - Content-hashed raw filenames make realtime snapshot landing idempotent.
 - The realtime warehouse loader uses `(snapshot_hash, entity_id)` with `ON CONFLICT DO NOTHING`.
+- Realtime records are now registered as a dbt source and tested in staging.
 
 ## Next
 
