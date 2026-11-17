@@ -21,6 +21,8 @@ The local MVP can:
 - land identical realtime feed contents only once during reruns
 - load realtime snapshots incrementally into PostgreSQL without duplicate rows
 - expose realtime PostgreSQL records through a dbt staging view
+- fetch real BART departure estimates through the official ETD API with a 403 fallback
+- load ETD snapshots into PostgreSQL and expose an analytics-ready realtime departures mart
 - run dbt tests for nulls, duplicates, composite keys, and relationships
 
 ## Current flow
@@ -36,7 +38,7 @@ BART GTFS ZIP
 → PostgreSQL transitflow database
 → dbt source definitions
 → staging views
-→ analytics mart tables
+→ analytics mart tables, including realtime departures
 ```
 
 ## Main files
@@ -46,6 +48,8 @@ BART GTFS ZIP
 - `tests/` — automated checks
 - `sql/warehouse_schema.sql` — PostgreSQL tables and constraints
 - `dbt/` — dbt project, staging models, mart models, and tests
+- `src/ingest_bart_etd.py` — live BART departure ingestion
+- `src/load_bart_etd_to_postgres.py` — incremental ETD warehouse loader
 
 ## How to run
 
@@ -75,8 +79,11 @@ python -m pytest -q
 - Realtime records are now registered as a dbt source and tested in staging.
 - Updated the trip-update endpoint to BART's newer platform-based feed; terminal access remains
   dependent on Cloudflare verification.
+- Added a working ETD JSON path for local demos. It tries BART's official endpoint first and uses
+  a read-only relay only after a Cloudflare 403. The API can return zero departures outside BART
+  operating hours; that is a real empty response, not generated sample data.
 
 ## Next
 
-The local PostgreSQL warehouse and basic dbt layer are now working. Next, understand the dbt
-models and tests before moving to AWS or Airflow.
+The local PostgreSQL warehouse, dbt layer, and realtime ETD path are now working. Next, understand
+the new ETD files and then move to AWS or Airflow.
