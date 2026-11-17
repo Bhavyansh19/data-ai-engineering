@@ -73,6 +73,8 @@ python -m pytest -q
 - Content-hashed raw filenames make realtime snapshot landing idempotent.
 - The realtime warehouse loader uses `(snapshot_hash, entity_id)` with `ON CONFLICT DO NOTHING`.
 - Realtime records are now registered as a dbt source and tested in staging.
+- Updated the trip-update endpoint to BART's newer platform-based feed; terminal access remains
+  dependent on Cloudflare verification.
 
 ## Next
 
